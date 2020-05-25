@@ -58,6 +58,7 @@
     {% for image in images %}
       {% if image.image %}
       <h2>{{ image.title }}</h2>
+      <em>{{ image.timestamp }}</em>
       <img src="{{ image.image.url }}" class="img-responsive" alt="">
       {% endif %}
     {% endfor %}
