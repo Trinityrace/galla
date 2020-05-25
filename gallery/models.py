@@ -1,7 +1,7 @@
 from django.db import models
 
 # Create your models here.
-class Photos(models.Model):
+class Photo(models.Model):
   title = models.CharField(max_length=200)
   width = models.IntegerField(default=0)
   height = models.IntegerField(default=0)
