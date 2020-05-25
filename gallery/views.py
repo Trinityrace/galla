@@ -1,11 +1,8 @@
 from django.shortcuts import render
 from .models import Photo
-from django.http  import HttpResponse
+from django.http  import HttpResponse, Http404
 
 # Create your views here.
-def welcome(request):
-    queryset = Photo.objects.all()
-    context = {
-        "photos" = queryset,
-    }
-    return render(request,'templates', content)
+def index(request):
+    images = Photo.objects.all()
+    return render(request, 'photo/photo.html', {'images': images})
