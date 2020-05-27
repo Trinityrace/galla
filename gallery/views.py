@@ -30,29 +30,29 @@ def gallery(request):
     return render(request, 'photo/gallery.html', {'images': images})
 
 def search_results(request):
-    if 'category' in request.GET and request.GET["categorys"]:
+    if 'categorys' in request.GET and request.GET["categorys"]:
         search_images = request.GET.get("categorys")
         searched_images = Photo.search_by_category(search_images)
         message = f"{search_images}"
         return render(request, 'photo/search.html',{"message":message,"photos": searched_images})
     else:
-        message = "You haven't searched for any image"    
+        message = "You haven't searched for an image"    
     return render(request, 'photo/search.html',{"message":message})
 
 def get_image_by_id(request,image_id):
     try:
-        image = Image.objects.get(id = image_id)
+        image = Photo.objects.get(id = image_id)
     except DoesNotExist:
         raise Http404()
     return render(request,"image.html", {"image":image})
 
-def location(request):
-    image = Image.objects.all()
-    locations = Location.objects.all()
-    return render(request, 'location.html', {"image": image, "locations": locations})    
+def search_by_category(request, category):
+    image = Photo.objects.all()
+    categorys = Category.objects.all()
+    return render(request, 'category.html', {"image": image, "categorys": categorys})    
 
 def search_by_location(request, location):
     locations = Location.objects.all()
-    image = Image.search_by_location(location)
+    image = Photo.search_by_location(location)
     return render(request, 'location.html', {"image": image, "locations": locations})        
 

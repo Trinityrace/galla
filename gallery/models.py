@@ -54,7 +54,8 @@ class Photo(models.Model):
   timestamp = models.DateTimeField(auto_now_add=True, auto_now=False)
   descripion = models.TextField(default=Default_description)
   location = models.ForeignKey(Location, on_delete=models.CASCADE)
-  category = models.ForeignKey(Category, on_delete=models.CASCADE)
+  category = models.ManyToManyField(Category)
+  # category = models.ForeignKey(Category, on_delete=models.CASCADE)
   taken_by = models.CharField(max_length=20, blank=True)
 
   def __unicode__(self):
@@ -81,10 +82,10 @@ class Photo(models.Model):
 
   @classmethod
   def search_by_category(cls,Name):
-    search_results = cls.objects.filter(category__Name__icontains=Name)
-    return search_results
+    cart = cls.objects.filter(category__Name__icontains=Name)
+    return cart
 
   @classmethod
   def search_by_location(cls, place):
-      image = cls.objects.filter(location__id=place).all()
-      return image
+      locale = cls.objects.filter(location__id=place)
+      return locale
