@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Photo
+from .models import Photo, Category, Location
 
 # Register your models here.
 class PhotoAdmin(admin.ModelAdmin):
@@ -9,3 +9,5 @@ class PhotoAdmin(admin.ModelAdmin):
     model = Photo
 
 admin.site.register(Photo, PhotoAdmin)
+admin.site.register(Location)
+admin.site.register(Category)

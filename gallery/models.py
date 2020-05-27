@@ -14,6 +14,7 @@ class Photo(models.Model):
   descripion = models.TextField(default=Default_description)
   location = models.ForeignKey(Location, on_delete=models.CASCADE)
   category = models.ForeignKey(Category, on_delete=models.CASCADE)
+  taken_by = models.CharField(max_length=20, blank=True)
 
   def __unicode__(self):
     return self.title
