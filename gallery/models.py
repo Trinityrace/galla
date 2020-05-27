@@ -11,7 +11,7 @@ default_category = "art"
 class Location(models.Model):
   place = models.CharField(max_length=30)
 
-  def __unicode__(self):
+  def __str__(self):
       return self.place
 
   @classmethod
@@ -80,11 +80,11 @@ class Photo(models.Model):
       return cls.objects.get(pk=id)
 
   @classmethod
-  def search_by_category(cls,search_term):
-    search_results = cls.objects.filter(category__Name__icontains=search_term)
+  def search_by_category(cls,Name):
+    search_results = cls.objects.filter(category__Name__icontains=Name)
     return search_results
 
   @classmethod
-  def search_by_location(cls, search_term):
-      image = Photo.objects.filter(location__id=search_term).all()
+  def search_by_location(cls, place):
+      image = cls.objects.filter(location__id=place).all()
       return image

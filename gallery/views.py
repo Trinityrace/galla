@@ -1,32 +1,58 @@
-from django.shortcuts import render
-from .models import Photo
+from django.shortcuts import render, get_object_or_404
+from .models import Photo, Location, Category
 from django.http  import HttpResponse, Http404
 import datetime as dt
 
 # Create your views here.
+# def index(request):
+#     images = Photo.objects.all().order_by('timestamp')
+#     return render(request, 'photo/gallery.html', {'images': images})
+
 def index(request):
-    return render(request, 'photo/base.html')
+    images = Photo.objects.all()
+    location = Location.objects.all()
+    category = Categorys.objects.all()
+
+    if 'location' in request.GET and request.GET['location']:
+        name = request.GET.get('location')
+        images = Photo.search_by_location(name)
+
+    elif 'category' in request.GET and request.GET['category']:
+        cart = request.GET.get('categories')
+        images = Photo.search_by_category(Name)
+        return render(request, 'photo/gallery.html', {"name":name, "images":images, "cart":cart })
+
+    return render(request,"photo/gallery.html",{"images":images,"location":location,"category":category})
+
 
 def gallery(request):
     images = Photo.objects.all().order_by('timestamp')
     return render(request, 'photo/gallery.html', {'images': images})
 
+def search_results(request):
+    if 'category' in request.GET and request.GET["categorys"]:
+        search_images = request.GET.get("categorys")
+        searched_images = Photo.search_by_category(search_images)
+        message = f"{search_images}"
+        return render(request, 'photo/search.html',{"message":message,"photos": searched_images})
+    else:
+        message = "You haven't searched for any image"    
+    return render(request, 'photo/search.html',{"message":message})
+
+def get_image_by_id(request,image_id):
+    try:
+        image = Image.objects.get(id = image_id)
+    except DoesNotExist:
+        raise Http404()
+    return render(request,"image.html", {"image":image})
 
 def location(request):
-    return render(request, 'photo/search.html')
+    image = Image.objects.all()
+    locations = Location.objects.all()
+    return render(request, 'location.html', {"image": image, "locations": locations})    
 
+def search_by_location(request, location):
+    locations = Location.objects.all()
+    image = Image.search_by_location(location)
+    return render(request, 'location.html', {"image": image, "locations": locations})        
 
-def category(request):
-    return render(request, 'photo/base.html')
-
-def search_results(request):
-    if 'image' in request.GET and request.GET["image"]:
-        search_term = request.GET.get("image")
-        searched_images = Photo.search_by_category(search_term)
-        message = f"{search_term}"
-
-        return render(request, 'photo/search.html',{"message":message,"photos": searched_images})
-
-    else:
-        message = "You haven't searched for any term"    
-    return render(request, 'photo/search.html',{"message":message})

@@ -1,22 +1,75 @@
 {%extends 'photo/base.html' %}
 {% block content %}
 {{ block.super }}
+{% load bootstrap3 %}
+<div class="container ">
 
-<div class="container card-body">
-  {% for image in images %}
-  <div class="row">
-    <div class="card col-xs-6 col-sm-6 col-md-6 col-lg-6">
-      {% if image.image %}
-      <h2>{{ image.title }}</h2>
-      <em>{{ image.timestamp }}</em>
-      <img src="{{ image.image.url }}" class="image-responsive d-block w-100 " alt="image">
-      {% endif %}
+  
+    <div class="card-columns">
+      {% for image in images %}
+      <!-- {% if image.image %} -->
+      <div class="card-img-top">
+      <img src="{{ image.image.url }}" class="img-responsive d-block w-100 " alt="image" data-target="#extraModal{{image.id}}" data-toggle="modal" size="100px200">
+      <!-- {% endif %} -->
+      </div>
       {% empty %}
       <div class="row">
         <h2 class="text-center">There No Images to display</h2>
       </div>
       {% endfor %}
     </div>
+  
+</div>
+
+
+<!-- Large modal -->
+{% for image in images %}
+
+<!-- Modal -->
+<div class="modal fade" id="extraModal{{image.id}}" tabindex="-1" role="dialog" aria-labelledby="extra" aria-hidden="true" >
+  <div class="modal-dialog" role="document">
+    <div class="modal-content" style="background-color: rgba(184, 20, 88, 0.966);">
+      <div class="modal-header">
+        <h5 style="font-family: 'Segoe UI', cursive;" class="modal-title" id="exampleModalLongTitle">TITLE: {{image.title}}</h5><hr>
+        <em>{{ image.timestamp }}</em>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+      </div>
+
+      <div class="modal-body">
+        <img class="card-img-top" class="img-responsive" src="{{image.image.url}}" size="120px200">
+        <h5 style="font-family: 'Segoe UI', cursive;"><br>ABOUT:<hr> {{image.descripion}}</h5>
+        <hr>
+        <h5 style="font-family: 'Segoe UI', cursive;">LOCATED AT: {{image.location}}</h5>
+        <hr>
+        <!-- {% for category in image.categories.all %} -->
+        <h5 style="font-family: 'Segoe UI', cursive;">CATEGORY:<hr> {{image.category}} </h5>
+        <!-- {% endfor %} -->
+        <hr>
+
+        <!-- Button used copy the url -->
+        <button type="button" name="button" style="font-family: 'Segoe UI', cursive;" class="btn btn-info" value="https://piksy.herokuapp.com{{image.image.url}}" onclick="copylink(this.value)">COPY IMAGE LINK</button>
+      </div>
+      <div class="modal-footer">
+        <button type="button" style="font-family: 'Segoe UI', cursive;" class="btn btn-info" data-dismiss="modal">CLOSE</button>
+
+      </div>
+    </div>
   </div>
 </div>
+<script>
+function copylink(value) {
+    console.log('hellow')
+    function handler(event){
+        event.clipboardData.setData('text/plain', value);
+        event.preventDefault();
+        document.removeEventListener('copy', handler, true);
+    }
+    document.addEventListener('copy', handler, true);
+    document.execCommand('copy');
+}
+</script>
+
+{% endfor %}
+
 {% endblock content %}
