@@ -11,7 +11,7 @@ import datetime as dt
 def index(request):
     images = Photo.objects.all()
     location = Location.objects.all()
-    category = Categorys.objects.all()
+    category = Category.objects.all()
 
     if 'location' in request.GET and request.GET['location']:
         name = request.GET.get('location')
@@ -19,7 +19,7 @@ def index(request):
 
     elif 'category' in request.GET and request.GET['category']:
         cart = request.GET.get('categories')
-        images = Photo.search_by_category(Name)
+        images = Photo.search_by_category(cart)
         return render(request, 'photo/gallery.html', {"name":name, "images":images, "cart":cart })
 
     return render(request,"photo/gallery.html",{"images":images,"location":location,"category":category})
