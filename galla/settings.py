@@ -35,6 +35,7 @@ ALLOWED_HOSTS = config('https://piksy.herokuapp.com/', '127.0.0.1', cast=Csv())
 
 INSTALLED_APPS = [
     'gallery.apps.GalleryConfig',
+    'bootstrap3',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -82,10 +83,10 @@ if config('MODE')=='dev':
     DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-        
-        'USER': os.environ.get('DB_USER', 'postgres'),
-        'PASSWORD': os.environ.get('DB_PASSWORD', 'password'),
+        'NAME': 'os.path.join(BASE_DIR, "db.sqlite3")',
+
+        'USER': os.environ.get('DB_USER', 'postgresql'),
+        'PASSWORD': os.environ.get('DB_PASSWORD', 'passcoder'),
         'HOST': os.environ.get('DB_HOST', 'localhost'),
         'PORT': os.environ.get('DB_PORT', '5432'),
         'TEST': {
@@ -141,7 +142,7 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFileStorage'
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-STATICFILES_DIRS = (os.path.join(BASE_DIR,'static'))
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'),]
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR,'media')

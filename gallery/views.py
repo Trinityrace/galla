@@ -10,7 +10,7 @@ def index(request):
 
 
 def location():
-    return render(request)
+    return render(request, 'photo/search.html')
 
 
 def category():
