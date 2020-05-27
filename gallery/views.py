@@ -44,15 +44,15 @@ def get_image_by_id(request,image_id):
         image = Photo.objects.get(id = image_id)
     except DoesNotExist:
         raise Http404()
-    return render(request,"image.html", {"image":image})
+    return render(request,"gallery.html", {"image":image})
 
 def search_by_category(request, category):
     image = Photo.objects.all()
     categorys = Category.objects.all()
-    return render(request, 'category.html', {"image": image, "categorys": categorys})    
+    return render(request, 'gallery.html', {"image": image, "categorys": categorys})    
 
 def search_by_location(request, location):
     locations = Location.objects.all()
     image = Photo.search_by_location(location)
-    return render(request, 'location.html', {"image": image, "locations": locations})        
+    return render(request, 'gallery.html', {"image": image, "locations": locations})        
 
