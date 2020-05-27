@@ -9,12 +9,12 @@ def index(request):
     return render(request, 'photo/base.html', {'images': images})
 
 
-def location():
-    return render(request, 'photo/search.html')
+# def location():
+#     return render(request, 'photo/search.html')
 
 
-def category():
-    return render(request, 'photo/category.html')
+# def category():
+#     return render(request, 'photo/category.html')
 
-def search_image_by_id(id):
-    return render(request, 'photo/search.html')
+# def search_image_by_id(id):
+#     return render(request, 'photo/search.html')
