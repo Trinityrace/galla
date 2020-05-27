@@ -1,0 +1,22 @@
+{%extends 'photo/base.html' %}
+{% block content %}
+{{ block.super }}
+
+<div class="container card-body">
+  {% for image in images %}
+  <div class="row">
+    <div class="card col-xs-6 col-sm-6 col-md-6 col-lg-6">
+      {% if image.image %}
+      <h2>{{ image.title }}</h2>
+      <em>{{ image.timestamp }}</em>
+      <img src="{{ image.image.url }}" class="image-responsive d-block w-100 " alt="image">
+      {% endif %}
+      {% empty %}
+      <div class="row">
+        <h2 class="text-center">There No Images to display</h2>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+{% endblock content %}
