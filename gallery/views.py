@@ -11,7 +11,7 @@ import datetime as dt
 def index(request):
     images = Photo.objects.all()
     location = Location.objects.all()
-    category = Categorys.objects.all()
+    category = Category.objects.all()
 
     if 'location' in request.GET and request.GET['location']:
         name = request.GET.get('location')
