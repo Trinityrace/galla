@@ -19,7 +19,7 @@ def index(request):
 
     elif 'category' in request.GET and request.GET['category']:
         cart = request.GET.get('categories')
-        images = Photo.search_by_category(Name)
+        images = Photo.search_by_category(cart)
         return render(request, 'photo/gallery.html', {"name":name, "images":images, "cart":cart })
 
     return render(request,"photo/gallery.html",{"images":images,"location":location,"category":category})
