@@ -20,16 +20,14 @@
             Location
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            
-            <a class="dropdown-item" href="#"></a>
-            <a class="dropdown-item" href="{}">Dubai</a>
+            <a class="dropdown-item" href="{{image.location}}">Dubai</a>
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="{}">Shop</a>
+            <a class="dropdown-item" href="{{image.location}}">Shop</a>
             
           </div>
         </li>
         <li class="nav-item">
-          <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Add</a>
+          <a class="nav-link disabled" href="/admin" tabindex="-1" aria-disabled="true">Add</a>
         </li>
       </ul>
       <form class="form-inline my-2 my-lg-0" role="search" action="{% url 'search_results' %}" method="get">
