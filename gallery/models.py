@@ -66,26 +66,45 @@ class Photo(models.Model):
 
   @classmethod    
   def save_image(self):
-      self.save()
+    self.save()
+
+  @classmethod    
+  def all_images(self):
+    return Photo.objects.all()
 
   @classmethod
   def delete_image(self):
-      self.delete()
+    self.delete()
 
   @classmethod
   def update_image(cls, id, value):
-      cls.objects.filter(id=id).update(value)
+    cls.objects.filter(id=id).update(value)
 
   @classmethod
   def get_image_by_id(cls, id):
-      return cls.objects.get(pk=id)
+    return cls.objects.get(pk=id)
 
   @classmethod
-  def search_by_category(cls,Name):
-    cart = cls.objects.filter(category__Name__icontains=Name)
-    return cart
+  def search_results(cls,search_image):
+    images = Photo.objects.filter(category__Name__icontains=search_image)
+    return images
+
+  # @classmethod
+  # def search_by_category(cls, search_image):
+  #   image = Photo.objects.filter(category__Name__icontains=search_image).all()
+  #   return image
 
   @classmethod
-  def search_by_location(cls, place):
-      locale = cls.objects.filter(location__id=place)
-      return locale
+  def search_by_locale(cls, search_image):
+    image = Photo.objects.filter(location__id=search_image).all()
+    return image
+
+  @classmethod    
+  def view_category(cls, Name):
+    category = cls.objects.filter(category=Name)
+    return category
+
+  @classmethod    
+  def view_locale(cls, place):
+    location = cls.objects.filter(location=place)
+    return location

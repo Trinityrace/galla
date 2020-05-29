@@ -4,6 +4,7 @@ from .models import Location, Category, Photo
 # Create your tests here.
 # test for category 
 class CategoryTest(TestCase):
+  # creating new category and saving
     def setUp(self):
         self.art = Category(Name='art')
 
@@ -30,7 +31,7 @@ class PhotoTest(TestCase):
         self.art = Category.objects.create(Name='art')
 
         self.juice = Photo.objects.create(
-            title='juice', location=self.dubai,  descripion='picture of a juice')
+            title='juice', location=self.dubai, descripion='picture of a juice')
 
         self.juice.category.add(self.fun)
         self.juice.category.add(self.art)
@@ -54,22 +55,31 @@ class PhotoTest(TestCase):
         self.juice.title = 'MoreJuices'
         self.assertTrue(self.juice.title == 'MoreJuices')
 
-    def test_all_images(self):
+    def test_search_results(self):
         self.juice.save()
-        images = Photo.all_images()
-        self.assertTrue(len(images) > 0)
+        # search_results = Photo.view_category(search_image)
+        # self.assertTrue(len(search_results)==0)
+        images = Photo.search_results('fun')
+        self.assertTrue(len(images)>0)
 
-    def test_search_by_id(self):
+    def test_search_by_locale(self):
         self.juice.save()
-        images = Photo.search_by_id('fun')
-        self.assertTrue(len(images) > 0)
+        #images = Photo.get_image_by_id(int(id))
+        search_by_locale= Location.get(id)
+        self.assertTrue(len(search_by_locale)>0)
 
-    def test_search_by_location(self):
+    def test_view_locale(self):
         self.juice.save()
-        location = Photo.search_by_location(self.dubai)
-        self.assertTrue(len(locale) > 0)
+        locale = Photo.view_locale(self.dubai)
+      #  search_by_location = Location.get(id)
+        self.assertTrue(len(locale)>0)
 
-    def test_search_by_category(self):
+    def test_view_category(self):
         self.juice.save()
-        category = Photo.search_by_category(self.art)
-        self.assertTrue(len(cart) > 0)
+        category = Photo.view_category(self.fun)
+        self.assertTrue(len(category) > 0)
+
+    def tearDown(self):
+        Category.objects.all().delete()
+        Location.objects.all().delete()
+        Photo.objects.all().delete()
