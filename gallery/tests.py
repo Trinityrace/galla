@@ -25,19 +25,24 @@ class LocationTest(TestCase):
 class PhotoTest(TestCase):
 
     def setUp(self):
-        self.dubai = Location.objects.create(name='dubai')
-        self.fun = Category.objects.create(name='fun')
-        self.art = Category.objects.create(name='art')
+        self.dubai = Location.objects.create(place='dubai')
+        self.fun = Category.objects.create(Name='fun')
+        self.art = Category.objects.create(Name='art')
 
         self.juice = Photo.objects.create(
-            title='juice', location=self.dubai,  description='picture of a juice')
+            title='juice', location=self.dubai,  descripion='picture of a juice')
 
         self.juice.category.add(self.fun)
-        self.juice.category.add(self.music)
+        self.juice.category.add(self.art)
 
     def test_instance(self):
         self.juice.save()
         self.assertTrue(isinstance(self.juice, Photo))
+
+    def test_save_image(self):
+        self.juice.save()
+        images= Photo.objects.all()
+        self.assertTrue(len(images)>0)
 
     def test_delete_image(self):
         self.juice.save()
@@ -46,8 +51,8 @@ class PhotoTest(TestCase):
 
     def test_update(self):
         self.juice.save()
-        self.juice.name = 'MoreJuices'
-        self.assertTrue(self.juice.name == 'MoreJuices')
+        self.juice.title = 'MoreJuices'
+        self.assertTrue(self.juice.title == 'MoreJuices')
 
     def test_all_images(self):
         self.juice.save()
@@ -62,9 +67,9 @@ class PhotoTest(TestCase):
     def test_search_by_location(self):
         self.juice.save()
         location = Photo.search_by_location(self.dubai)
-        self.assertTrue(len(location) > 0)
+        self.assertTrue(len(locale) > 0)
 
     def test_search_by_category(self):
         self.juice.save()
         category = Photo.search_by_category(self.art)
-        self.assertTrue(len(category) > 0)
+        self.assertTrue(len(cart) > 0)
