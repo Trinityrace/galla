@@ -89,10 +89,10 @@ class Photo(models.Model):
     images = Photo.objects.filter(category__Name__icontains=search_image)
     return images
 
-  # @classmethod
-  # def search_by_category(cls, search_image):
-  #   image = Photo.objects.filter(category__Name__icontains=search_image).all()
-  #   return image
+  @classmethod
+  def search_by_category(cls, search_image):
+    image = Photo.objects.filter(category__Name__icontains=search_image).all()
+    return image
 
   @classmethod
   def search_by_locale(cls, search_image):
