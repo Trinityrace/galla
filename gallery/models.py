@@ -1,6 +1,7 @@
 from __future__ import unicode_literals
 from django.db import models
 import datetime as dt
+from cloudinary.models import CloudinaryField
 
 # Create your models here.
 Default_description = "Photographical Art At Its Best!"
@@ -50,7 +51,8 @@ class Photo(models.Model):
   title = models.CharField(max_length=70)
   width = models.IntegerField(default=0)
   height = models.IntegerField(default=0)
-  image = models.ImageField(null=False, blank=False, width_field="width", height_field="height")
+#  image = models.ImageField(null=False, blank=False, width_field="width", height_field="height")
+  image = CloudinaryField('image')
   timestamp = models.DateTimeField(auto_now_add=True, auto_now=False)
   descripion = models.TextField(default=Default_description)
   location = models.ForeignKey(Location, on_delete=models.CASCADE)
